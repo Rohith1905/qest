@@ -19,26 +19,28 @@ Check out the live app: [E-Commerce Website](https://qest-six.vercel.app/)
 
 [![Homepage](https://raw.githubusercontent.com/Rohith1905/qest/main/1p.png)](https://raw.githubusercontent.com/Rohith1905/qest/main/1p.png)
 
-### Product Page
+### Filter-Products
 
 [![Product Page](https://raw.githubusercontent.com/Rohith1905/qest/main/2p.png)](https://raw.githubusercontent.com/Rohith1905/qest/main/2p.png)
 
-### Cart
+### Other-Products
 
-[![Cart](https://raw.githubusercontent.com/Rohith1905/qest/main/3p.png)](https://raw.githubusercontent.com/Rohith1905/qest/main/3p.png)
+[![other](https://raw.githubusercontent.com/Rohith1905/qest/main/3p.png)](https://raw.githubusercontent.com/Rohith1905/qest/main/3p.png)
+
+### Cart-Management
+
+[![Cart](https://raw.githubusercontent.com/Rohith1905/qest/main/4p.png)](https://raw.githubusercontent.com/Rohith1905/qest/main/4p.png)
 
 ### Checkout
 
-[![Checkout](https://raw.githubusercontent.com/Rohith1905/qest/main/4p.png)](https://raw.githubusercontent.com/Rohith1905/qest/main/4p.png)
+[![Checkout](https://raw.githubusercontent.com/Rohith1905/qest/main/5p.png)](https://raw.githubusercontent.com/Rohith1905/qest/main/5p.png)
 
 ### Invoice
 
-[![Invoice](https://raw.githubusercontent.com/Rohith1905/qest/main/5p.png)](https://raw.githubusercontent.com/Rohith1905/qest/main/5p.png)
+[![ Invoice](https://raw.githubusercontent.com/Rohith1905/qest/main/6p.png)](https://raw.githubusercontent.com/Rohith1905/qest/main/6p.png)
 
-### Responsive View
-
-[![Responsive View](https://raw.githubusercontent.com/Rohith1905/qest/main/6p.png)](https://raw.githubusercontent.com/Rohith1905/qest/main/6p.png)
-
+### Invoice-pdf
+[![Invoice-pdf](https://raw.githubusercontent.com/Rohith1905/qest/main/7p.png)](https://raw.githubusercontent.com/Rohith1905/qest/main/7p.png)
 
 ## 💻 Tech Stack
 

@@ -20,40 +20,42 @@ const Invoice = () => {
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
-
+  
     // Title
     doc.setFontSize(20);
     doc.text("Invoice", 105, 20, null, null, "center");
-
+  
     // User Details Section
     doc.setFontSize(12);
     doc.text(`Name: ${userDetails.firstName} ${userDetails.lastName}`, 20, 40);
     doc.text(`Email: ${userDetails.email}`, 20, 50);
     doc.text(`Address: ${userDetails.address}`, 20, 60);
-
+  
     // Order Summary Table
     const tableColumn = ["Item", "Quantity", "Price"];
     const tableRows = [];
     state.forEach((item) => {
-      tableRows.push([item.name, item.qty, `$${item.price}`]);
+      tableRows.push([item.name, item.qty, `Rs. ${item.price}`]);
     });
-
+  
     doc.autoTable({
       startY: 80,
       head: [tableColumn],
       body: tableRows,
     });
-
+  
     // Total Section
     doc.setFontSize(14);
     doc.text(`Total Items: ${totalItems}`, 20, doc.autoTable.previous.finalY + 20);
-    doc.text(`Total Amount: $${Math.round(subtotal)}`, 20, doc.autoTable.previous.finalY + 30);
-
+    doc.text(`Total Amount: Rs. ${Math.round(subtotal)}`, 20, doc.autoTable.previous.finalY + 30);
+  
     // Save PDF
     doc.save("invoice.pdf");
-    //
+  
+    // Empty the cart
     dispatch(emptyCart());
   };
+  
 
   return (
     <>

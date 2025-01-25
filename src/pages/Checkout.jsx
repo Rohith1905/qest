@@ -317,14 +317,29 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-4 my-1">
-                        <label htmlFor="state" className="form-label">
-                          State
-                        </label>
-                        <select className="form-select" id="state" required>
-                          <option value="">Choose...</option>
-                          <option>Punjab</option>
-                        </select>
-                      </div>
+  <label htmlFor="state" className="form-label">
+    State
+  </label>
+  <select className="form-select" id="state" required>
+    <option value="">Choose...</option>
+    <option>Punjab</option>
+    <option>Haryana</option>
+    <option>Uttar Pradesh</option>
+    <option>Delhi</option>
+    <option>Rajasthan</option>
+    <option>Gujarat</option>
+    <option>Maharashtra</option>
+    <option>Karnataka</option>
+    <option>West Bengal</option>
+    <option>Tamil Nadu</option>
+    <option>Kerala</option>
+    <option>Andhra Pradesh</option>
+    <option>Odisha</option>
+    <option>Bihar</option>
+    <option>Madhya Pradesh</option>
+  </select>
+</div>
+
 
                       <div className="col-md-3 my-1">
                         <label htmlFor="zip" className="form-label">

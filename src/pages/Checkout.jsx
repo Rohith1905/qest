@@ -252,9 +252,24 @@ const Checkout = () => {
                         State
                       </label>
                       <select className="form-select" id="state" required>
-                        <option value="">Choose...</option>
-                        <option>Punjab</option>
-                      </select>
+  <option value="">Choose...</option>
+  <option value="Punjab">Punjab</option>
+  <option value="Haryana">Haryana</option>
+  <option value="Uttar Pradesh">Uttar Pradesh</option>
+  <option value="Maharashtra">Maharashtra</option>
+  <option value="Tamil Nadu">Tamil Nadu</option>
+  <option value="Karnataka">Karnataka</option>
+  <option value="Rajasthan">Rajasthan</option>
+  <option value="Gujarat">Gujarat</option>
+  <option value="West Bengal">West Bengal</option>
+  <option value="Delhi">Delhi</option>
+  <option value="Kerala">Kerala</option>
+  <option value="Bihar">Bihar</option>
+  <option value="Andhra Pradesh">Andhra Pradesh</option>
+  <option value="Madhya Pradesh">Madhya Pradesh</option>
+  <option value="Uttarakhand">Uttarakhand</option>
+</select>
+
                     </div>
 
                     <div className="col-md-3 my-1">

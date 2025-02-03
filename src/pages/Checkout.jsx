@@ -20,96 +20,45 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Handle user input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === "cardNumber") {
-      // Allow only raw digits while typing, limit to 16 digits
-      setUser({
-        ...user,
-        [name]: value.replace(/[^\d]/g, "").slice(0, 16),
-      });
-    } else if (name === "cvv") {
-      // Allow only 3 digits for CVV
-      setUser({
-        ...user,
-        [name]: value.replace(/\D/g, "").slice(0, 3),
-      });
-    } else {
-      // Handle other fields normally
-      setUser({
-        ...user,
-        [name]: value,
-      });
-    }
-  };
-
-  // Validation functions
-  const validateCardNumber = (value) => {
-    if (value.length !== 16) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        cardNumber: "Card number must be 16 digits long!",
-      }));
-      return false;
-    }
-    setErrors((prevErrors) => ({ ...prevErrors, cardNumber: "" }));
-    return true;
-  };
-
-  const validateExpirationDate = (value) => {
-    const [month, year] = value.split("/");
-    const now = new Date();
-    const inputDate = new Date(`20${year}`, month - 1);
-
-    if (!month || !year || inputDate < now) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        expirationDate: "Expiration date must be valid and in the future!",
-      }));
-      return false;
-    }
-    setErrors((prevErrors) => ({ ...prevErrors, expirationDate: "" }));
-    return true;
-  };
-
-  // Handle blur events for validation
-  const handleBlur = (e) => {
-    const { name, value } = e.target;
-
-    if (name === "cardNumber" && !validateCardNumber(value)) return;
-
-    if (name === "cardNumber") {
-      const formattedValue = value.replace(/(\d{4})(?=\d)/g, "$1 ");
-      setUser({ ...user, [name]: formattedValue });
-    }
-
-    if (name === "expirationDate" && !validateExpirationDate(value)) return;
-  };
-
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    // Validate all fields before submitting
-    const isValid =
-      validateCardNumber(user.cardNumber) &&
-      validateExpirationDate(user.expirationDate);
-  
-    if (!isValid) return;
-  
-    // Destructure user object for cleaner code
-    const { firstName, lastName, email, address } = user;
-  
-    // Dispatch user details to redux store
-    dispatch(setUserDetails({ firstName, lastName, email, address }));
-    console.log("Dispatching user details:", user);
-    
+
+    // Collect all form data at once
+    const formData = new FormData(e.target);
+    const newUser = {};
+
+    formData.forEach((value, key) => {
+      newUser[key] = value;
+    });
+
+    // Validate card number
+    if (newUser.cardNumber.replace(/\s/g, "").length !== 16) {
+      alert("Card number must be 16 digits long!");
+      return;
+    }
+
+    // Validate expiration date (MM/YY)
+    if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(newUser.expirationDate)) {
+      alert("Enter a valid expiration date in MM/YY format!");
+      return;
+    }
+
+    // Validate CVV (3 digits)
+    if (!/^\d{3}$/.test(newUser.cvv)) {
+      alert("CVV must be 3 digits!");
+      return;
+    }
+
+    setUser(newUser); // Update state only on submit
+    console.log("Updated User Data:", newUser);
+
+    // Dispatch to Redux store
+    dispatch(setUserDetails(newUser));
+
     // Navigate to invoice page
     navigate("/invoice");
   };
-  
 
   // Empty Cart Message
   const EmptyCart = () => (
@@ -168,187 +117,169 @@ const Checkout = () => {
                 <h4 className="mb-0">Billing Address</h4>
               </div>
               <div className="card-body">
-                  <form className="needs-validation" onSubmit={handleSubmit} noValidate>
-                    <div className="row g-3">
-                      {/* First Name */}
-                      <div className="col-sm-6 my-1">
-                        <label htmlFor="firstName" className="form-label">
-                          First name
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="firstName"
-                          name="firstName"
-                          placeholder=""
-                          value={user.firstName}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-
-                      {/* Last Name */}
-                      <div className="col-sm-6 my-1">
-                        <label htmlFor="lastName" className="form-label">
-                          Last name
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="lastName"
-                          name="lastName"
-                          value={user.lastName}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-
-                      {/* Email */}
-                      <div className="col-12 my-1">
-                        <label htmlFor="email" className="form-label">
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="email"
-                          name="email"
-                          value={user.email}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-
-                      {/* Address */}
-                      <div className="col-12 my-1">
-                        <label htmlFor="address" className="form-label">
-                          Address
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="address"
-                          name="address"
-                          value={user.address}
-                          onChange={handleChange}
-                          required
-                        />
-                      </div>
-
-                      {/* Card Number */}
-                      <div className="col-12 my-1">
-                        <label htmlFor="cardNumber" className="form-label">
-                          Card Number
-                        </label>
-                        <input
-  type="text"
-  className="form-control"
-  id="cardNumber"
-  name="cardNumber"
-  value={user.cardNumber}
-  onChange={handleChange}
-  onBlur={handleBlur}
-  required
-  maxLength={19}
- // Card number max length with spaces
-/>
-
-                      </div>
-
-                      {/* Expiration Date */}
-                      <div className="col-md-6 my-1">
-  <label htmlFor="expirationDate" className="form-label">
-    Expiration Date
-  </label>
-  <input
-    type="text"
-    className="form-control"
-    id="expirationDate"
-    name="expirationDate"
-    placeholder="MM/YY"
-    value={user.expirationDate}
-    onChange={handleChange}
-    required
-    pattern="(0[1-9]|1[0-2])\/\d{2}" // Validates MM/YY format
-    title="Enter expiration date in MM/YY format"
-  />
-</div>
-
-
-                      {/* CVV */}
-                      <div className="col-md-6 my-1">
-                        <label htmlFor="cvv" className="form-label">
-                          CVV
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="cvv"
-                          name="cvv"
-                          value={user.cvv}
-                          onChange={handleChange}
-                          required
-                          maxLength="3"
-                        />
-                      </div>
-
-                      <div className="col-12">
-                        <label htmlFor="address2" className="form-label">
-                          Address 2{" "}
-                          <span className="text-muted">(Optional)</span>
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="address2"
-                          placeholder="Apartment or suite"
-                        />
-                      </div>
-
-                      {/* Country and State */}
-                      <div className="col-md-5 my-1">
-                        <label htmlFor="country" className="form-label">
-                          Country
-                        </label>
-                        <select className="form-select" id="country" required>
-                          <option value="">Choose...</option>
-                          <option>India</option>
-                        </select>
-                      </div>
-
-                      <div className="col-md-4 my-1">
-                        <label htmlFor="state" className="form-label">
-                          State
-                        </label>
-                        <select className="form-select" id="state" required>
-                          <option value="">Choose...</option>
-                          <option>Punjab</option>
-                        </select>
-                      </div>
-
-                      <div className="col-md-3 my-1">
-                        <label htmlFor="zip" className="form-label">
-                          Zip
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="zip"
-                          placeholder=""
-                          required
-                        />
-                      </div>
+                <form className="needs-validation" onSubmit={handleSubmit} noValidate>
+                  <div className="row g-3">
+                    {/* First Name */}
+                    <div className="col-sm-6 my-1">
+                      <label htmlFor="firstName" className="form-label">
+                        First name
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="firstName"
+                        name="firstName"
+                        placeholder=""
+                        required
+                      />
                     </div>
 
-                    <hr className="my-4" />
-                    <button
-                      className="w-100 btn btn-primary"
-                      type="submit"
-                    >
-                      Continue to checkout
-                    </button>
-                  </form>
-                </div>
+                    {/* Last Name */}
+                    <div className="col-sm-6 my-1">
+                      <label htmlFor="lastName" className="form-label">
+                        Last name
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="lastName"
+                        name="lastName"
+                        required
+                      />
+                    </div>
+
+                    {/* Email */}
+                    <div className="col-12 my-1">
+                      <label htmlFor="email" className="form-label">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        name="email"
+                        required
+                      />
+                    </div>
+
+                    {/* Address */}
+                    <div className="col-12 my-1">
+                      <label htmlFor="address" className="form-label">
+                        Address
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="address"
+                        name="address"
+                        required
+                      />
+                    </div>
+
+                    {/* Card Number */}
+                    <div className="col-12 my-1">
+                      <label htmlFor="cardNumber" className="form-label">
+                        Card Number
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="cardNumber"
+                        name="cardNumber"
+                        required
+                        maxLength={19} // Card number max length with spaces
+                      />
+                    </div>
+
+                    {/* Expiration Date */}
+                    <div className="col-md-6 my-1">
+                      <label htmlFor="expirationDate" className="form-label">
+                        Expiration Date
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="expirationDate"
+                        name="expirationDate"
+                        placeholder="MM/YY"
+                        required
+                        pattern="(0[1-9]|1[0-2])\/\d{2}" // Validates MM/YY format
+                        title="Enter expiration date in MM/YY format"
+                      />
+                    </div>
+
+                    {/* CVV */}
+                    <div className="col-md-6 my-1">
+                      <label htmlFor="cvv" className="form-label">
+                        CVV
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="cvv"
+                        name="cvv"
+                        required
+                        maxLength="3"
+                      />
+                    </div>
+
+                    <div className="col-12">
+                      <label htmlFor="address2" className="form-label">
+                        Address 2{" "}
+                        <span className="text-muted">(Optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="address2"
+                        placeholder="Apartment or suite"
+                      />
+                    </div>
+
+                    {/* Country and State */}
+                    <div className="col-md-5 my-1">
+                      <label htmlFor="country" className="form-label">
+                        Country
+                      </label>
+                      <select className="form-select" id="country" required>
+                        <option value="">Choose...</option>
+                        <option>India</option>
+                      </select>
+                    </div>
+
+                    <div className="col-md-4 my-1">
+                      <label htmlFor="state" className="form-label">
+                        State
+                      </label>
+                      <select className="form-select" id="state" required>
+                        <option value="">Choose...</option>
+                        <option>Punjab</option>
+                      </select>
+                    </div>
+
+                    <div className="col-md-3 my-1">
+                      <label htmlFor="zip" className="form-label">
+                        Zip
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="zip"
+                        placeholder=""
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <hr className="my-4" />
+                  <button
+                    className="w-100 btn btn-primary"
+                    type="submit"
+                  >
+                    Continue to checkout
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>

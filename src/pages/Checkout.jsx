@@ -117,6 +117,7 @@ const Checkout = () => {
                 <h4 className="mb-0">Billing Address</h4>
               </div>
               <div className="card-body">
+<<<<<<< HEAD
                 <form className="needs-validation" onSubmit={handleSubmit} noValidate>
                   <div className="row g-3">
                     {/* First Name */}
@@ -132,6 +133,193 @@ const Checkout = () => {
                         placeholder=""
                         required
                       />
+=======
+                  <form className="needs-validation" onSubmit={handleSubmit} noValidate>
+                    <div className="row g-3">
+                      {/* First Name */}
+                      <div className="col-sm-6 my-1">
+                        <label htmlFor="firstName" className="form-label">
+                          First name
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="firstName"
+                          name="firstName"
+                          placeholder=""
+                          value={user.firstName}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+
+                      {/* Last Name */}
+                      <div className="col-sm-6 my-1">
+                        <label htmlFor="lastName" className="form-label">
+                          Last name
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="lastName"
+                          name="lastName"
+                          value={user.lastName}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+
+                      {/* Email */}
+                      <div className="col-12 my-1">
+                        <label htmlFor="email" className="form-label">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          className="form-control"
+                          id="email"
+                          name="email"
+                          value={user.email}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+
+                      {/* Address */}
+                      <div className="col-12 my-1">
+                        <label htmlFor="address" className="form-label">
+                          Address
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="address"
+                          name="address"
+                          value={user.address}
+                          onChange={handleChange}
+                          required
+                        />
+                      </div>
+
+                      {/* Card Number */}
+                      <div className="col-12 my-1">
+                        <label htmlFor="cardNumber" className="form-label">
+                          Card Number
+                        </label>
+                        <input
+  type="text"
+  className="form-control"
+  id="cardNumber"
+  name="cardNumber"
+  value={user.cardNumber}
+  onChange={handleChange}
+  onBlur={handleBlur}
+  required
+  maxLength={19}
+ // Card number max length with spaces
+/>
+
+                      </div>
+
+                      {/* Expiration Date */}
+                      <div className="col-md-6 my-1">
+  <label htmlFor="expirationDate" className="form-label">
+    Expiration Date
+  </label>
+  <input
+    type="text"
+    className="form-control"
+    id="expirationDate"
+    name="expirationDate"
+    placeholder="MM/YY"
+    value={user.expirationDate}
+    onChange={handleChange}
+    required
+    pattern="(0[1-9]|1[0-2])\/\d{2}" // Validates MM/YY format
+    title="Enter expiration date in MM/YY format"
+  />
+</div>
+
+
+                      {/* CVV */}
+                      <div className="col-md-6 my-1">
+                        <label htmlFor="cvv" className="form-label">
+                          CVV
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="cvv"
+                          name="cvv"
+                          value={user.cvv}
+                          onChange={handleChange}
+                          required
+                          maxLength="3"
+                        />
+                      </div>
+
+                      <div className="col-12">
+                        <label htmlFor="address2" className="form-label">
+                          Address 2{" "}
+                          <span className="text-muted">(Optional)</span>
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="address2"
+                          placeholder="Apartment or suite"
+                        />
+                      </div>
+
+                      {/* Country and State */}
+                      <div className="col-md-5 my-1">
+                        <label htmlFor="country" className="form-label">
+                          Country
+                        </label>
+                        <select className="form-select" id="country" required>
+                          <option value="">Choose...</option>
+                          <option>India</option>
+                        </select>
+                      </div>
+
+                      <div className="col-md-4 my-1">
+  <label htmlFor="state" className="form-label">
+    State
+  </label>
+  <select className="form-select" id="state" required>
+    <option value="">Choose...</option>
+    <option>Punjab</option>
+    <option>Haryana</option>
+    <option>Uttar Pradesh</option>
+    <option>Delhi</option>
+    <option>Rajasthan</option>
+    <option>Gujarat</option>
+    <option>Maharashtra</option>
+    <option>Karnataka</option>
+    <option>West Bengal</option>
+    <option>Tamil Nadu</option>
+    <option>Kerala</option>
+    <option>Andhra Pradesh</option>
+    <option>Odisha</option>
+    <option>Bihar</option>
+    <option>Madhya Pradesh</option>
+  </select>
+</div>
+
+
+                      <div className="col-md-3 my-1">
+                        <label htmlFor="zip" className="form-label">
+                          Zip
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="zip"
+                          placeholder=""
+                          required
+                        />
+                      </div>
+>>>>>>> d945227a3803b217744a91ae0c6f6547bc86bebc
                     </div>
 
                     {/* Last Name */}
